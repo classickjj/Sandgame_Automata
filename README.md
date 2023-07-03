@@ -1,6 +1,8 @@
 # Sandgame 
 
-### Ein grober Schritt-für-Schritt-Leitfaden um ein Sandspielprojekt mit Python und C zu entwickeln.
+### Ein grober Schritt-für-Schritt-Leitfaden und Überblick der Entstehung eines mit Python und C entwickelten "Sandgames".
+
+# 
 
 #### Schritt 1: Python-Service entwickeln
 - Identifizieren der Hauptfunktionen des Sandgames, zum Beispiel das Erstellen und Aktualisieren des Spielfelds, das Setzen und Bewegen von Sandpartikeln 
