@@ -1,6 +1,6 @@
 # Sandgame 
 
-### Ein grober Schritt-für-Schritt-Leitfaden und Überblick der Entstehung eines mit Python und C entwickelten "Sandgames".
+### Ein grober Schritt-für-Schritt-Leitfaden der Entstehung eines mit Python und C entwickelten "Sandgames".
 
 # 
 
