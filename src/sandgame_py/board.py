@@ -18,18 +18,21 @@ def draw_game_board(canvas, game_board, cell_width, cell_height):
             particle = game_board[row][col]  # Get the particle at the current position
             particle_color = particle.color  # Get the color of the particle
 
+            # for now only way to display all grid borders , otherwise top and left side of board is missing its edges
             if row == 0:  # Top row
                 x1 -= 1
             if col == 0:  # Leftmost column
                 y1 -= 1
 
-            canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill=particle_color)
+            canvas.create_rectangle(x1, y1, x2, y2, outline="", fill=particle_color)
 
     print("drawn board grid")
 
 
 def run_board():
     
+    # hier eventuell einmal erste initiale board erstellung -> alle zellen werden gesetzt und danach nur noch in updateform...
+     
     # Set the dimensions of the window
     window_width = settings.game_board_width + 200  # Extra width for buttons and status bars
     window_height = settings.game_board_height + 10
