@@ -86,7 +86,8 @@ def run_board():
             # For example, you can print its type, row, and column:
             posi = (prtcle.x_pos, prtcle.y_pos)
             settings.changed_cells.append(posi)
-            print(f"Type: {prtcle.type}, Row: {prtcle.x_pos}, Col: {prtcle.y_pos} added")
+            #print(f"Type: {prtcle.type}, Row: {prtcle.x_pos}, Col: {prtcle.y_pos} added")
+    print("initial particles added to changed cells")
 
     # Draw the game board
     draw_game_board(settings.canvas, settings.nextGen_game_board, settings.cell_width, settings.cell_height)

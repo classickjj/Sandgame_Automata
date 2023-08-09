@@ -14,7 +14,7 @@ def set_particle(event):
     current_particle_type = settings.particle_types[settings.current_particle_index]
 
     # Set the particle type on the game board at the specified cell
-    # if (x, y) not in settings.changed_cells:
+    #if (x, y) not in settings.changed_cells:
     settings.nextGen_game_board[x][y] = particle.Particle(current_particle_type, x, y)
     settings.changed_cells.append((x, y))
 
@@ -43,13 +43,13 @@ def change_particle_type(event):
     return settings.current_particle_index
 
 
-#def mouse_posi(event):
+def mouse_posi(event):
     # Returns current (cell-)position of mouse in cell grid and displays it
-    #x = event.x // settings.cell_width
-    #y = event.y // settings.cell_height
+    x = event.x // settings.cell_width
+    y = event.y // settings.cell_height
 
     # Update the position display
-    #settings.posi_label.config(text=f"x: {x}, y: {y}")
+    settings.posi_label.config(text=f"x: {x}, y: {y}")
 
 ########################################### REGISTER EVENTS TO USER INPUTS #############################################################
 
@@ -60,7 +60,7 @@ settings.canvas.bind("<Button-1>", lambda event: set_particle(event))
 settings.canvas.bind("<MouseWheel>", lambda event: change_particle_type(event))
 
 # Register the mouse_posi function to handle mouse position
-#settings.canvas.bind("<Motion>", lambda event: mouse_posi(event))
+settings.canvas.bind("<Motion>", lambda event: mouse_posi(event))
 
 ########################################### HANDLE WINDOW CLOSING ######################################################################
 
