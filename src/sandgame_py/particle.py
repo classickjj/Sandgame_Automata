@@ -1,21 +1,29 @@
+########################################################## PARTICLES ##########################################################
 class Particle:
-    def __init__(self, particle_type):
-        self.particle_type = particle_type
+    # "constructor" for a particle
+    def __init__(self, type, x_pos, y_pos):
+        self.type  = type
+        self.x_pos = x_pos
+        self.y_pos = y_pos
         self.color = self.get_color()
-
+    
+    # get/set the color of the Particle determined by its type
     def get_color(self):
-        # Return the color based on the particle type
-        if self.particle_type == "Stone":
+    
+        if self.type == "Stone":
             return "gray"
-        elif self.particle_type == "Sand":
+        elif self.type == "Sand":
             return "yellow"
-        elif self.particle_type == "Water":
+        elif self.type == "Water":
             return "blue"
-        elif self.particle_type == "Air":
+        elif self.type == "Air":
             return "light grey"  
         else:
-            return "black" # Default color for unknown particle types
-    
+            # Default color for unknown particle types
+            return "black" 
 
-
-
+    # get the position of a particle (right now only needed for debugging)
+    def get_pos(self):
+        #returns tuple of x- and y-coordinates like so -> {x-coord, y-coord}
+        pos = (self.x_pos, self.y_pos)
+        return pos
