@@ -2,6 +2,7 @@ import tkinter as tk
 import settings
 import particle
 
+
 ################################################### GAMEBOARD ##############################################################################
 
 # create a gameboard with a grid, size x * y, and the given particlettype -> in my case always created with air particles
@@ -10,26 +11,13 @@ def create_game_board(type, x, y):
     return game_board
 
 
-# function to draw the gameboard / draw changes on the gameboard
+# function to draw the gameboard / draw changes on the gameboard ---- TODO: do i actually need to give cell_w and cell_h? i dont think so ... 
 def draw_game_board(canvas, game_board, cell_width, cell_height):
-    # Set the background color for the game board
-    #board_background_color = "light grey"
-    #canvas.create_rectangle(0, 0, len(game_board) * cell_width, len(game_board[0]) * cell_height, fill=board_background_color, outline="")
-
-    # debugging outputs
-    #print("gb * cell-w:")
-    #print(len(game_board) * cell_width)
-
-    #print("gb[0] * cell-h")
-    #print(len(game_board[0]) * cell_height)
-
+   
     # Draw individual cells
     for cell in settings.changed_cells:
         row, col = cell
-        
-        # printstatement for debugging
-        #print(f"x: {row}, y: {col} ist in der liste")
-        
+             
         particle = game_board[row][col]  # Get the particle at the current position
         particle_color = particle.color  # Get the color of the particle
 
@@ -39,26 +27,30 @@ def draw_game_board(canvas, game_board, cell_width, cell_height):
         x2 = x1 + cell_width
         y2 = y1 + cell_height 
 
-        # for now only way to display all grid borders, otherwise top and left side of board is missing its edges
-        #if row == 0:  # Top row
-        #    x1 -= 1
-        #if col == 0:  # Leftmost column
-        #    y1 -= 1
-
         # draw a (filled) rectangle (cell) at specified coordinates with given color (and if specified with cell border) 
         canvas.create_rectangle(x1, y1, x2, y2, outline="", fill=particle_color)
+    
+    #clear the updated cells list after drawing them 
+    settings.changed_cells.clear()
 
     # when done print msg in console
-    print("Game board updated")
+    #print("Game board updated")
     
-    #TODO: i think here clear 
-    settings.changed_cells.clear()
-    print("after clear")
 
 ################################################### WINDOW/BOARD SETUP #####################################################################
 
 # function to "run" the whole "board" including the game canvas and other things that need to be displayed
 # for example the position of the mouse in the grid of cells, buttons, etc.
+def add_cells_to_draw():
+    for row in settings.nextGen_game_board:
+        for prtcle in row:
+            # Access and work with the particle object
+            # For example, you can print its type, row, and column:
+            posi = prtcle.get_pos()
+            settings.changed_cells.append(posi)
+            #print(f"Type: {prtcle.type}, Row: {prtcle.x_pos}, Col: {prtcle.y_pos} added")
+    print("initial particles added to changed cells")
+
 def run_board():
      
     # Set the dimensions of the (whole) window
@@ -74,23 +66,17 @@ def run_board():
 
     # set the position of the game-canvas in the application window
     settings.canvas.pack(side=tk.LEFT)
-    print("canvas positioned left side of app window")
 
     # postion Extra buttons and status bars
-    settings.posi_label.pack(side=tk.BOTTOM, anchor=tk.SE)
-    
+    settings.posi_label.pack(side=tk.BOTTOM, anchor=tk.S)
+    settings.type_color_label.pack(side=tk.BOTTOM, anchor=tk.S)
+    settings.type_label.pack(side=tk.BOTTOM, anchor=tk.S)
+    settings.button_label.pack(side=tk.TOP, anchor=tk.N)
+    print("packing done")
+  
     #first time initialise all cells to be "changed" (because right now the "draw" function only operates on the changed cells list)
-    for row in settings.nextGen_game_board:
-        for prtcle in row:
-            # Access and work with the particle object
-            # For example, you can print its type, row, and column:
-            posi = (prtcle.x_pos, prtcle.y_pos)
-            settings.changed_cells.append(posi)
-            #print(f"Type: {prtcle.type}, Row: {prtcle.x_pos}, Col: {prtcle.y_pos} added")
-    print("initial particles added to changed cells")
+    add_cells_to_draw()
 
     # Draw the game board
     draw_game_board(settings.canvas, settings.nextGen_game_board, settings.cell_width, settings.cell_height)
     print("gameboard setup finished")
-    # the current selected particle should not be in console but in label like the mouse-position
-    print("Currently selected particle type:", settings.particle_types[settings.current_particle_index])
