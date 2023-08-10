@@ -87,7 +87,7 @@ settings.canvas.bind("<Motion>", handle_mouse_motion)
 
 # Add window close event handler
 def on_closing():
-    print("Window closed")
+    print("> window closed")
     settings.root.destroy()
     
 settings.root.protocol("WM_DELETE_WINDOW", on_closing)

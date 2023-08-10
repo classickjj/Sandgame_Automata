@@ -5,6 +5,7 @@ import board
 
 ############################################## APPLICATION SETTINGS ######################################################
 
+print("> starting game")
 # size of the actual game "canvas"
 game_board_width = 1280
 game_board_height = 720
@@ -18,7 +19,7 @@ cell_height = 4
 cells_number_w = game_board_width // cell_width
 cells_number_h = game_board_height // cell_height
 # for debugging: print the computed values to console
-print("cell width: " + str (cells_number_w) + ", cell height: " + str (cells_number_h)) 
+print(f"\t>> board dimensions: {cells_number_w} x {cells_number_h} cells (-> width x height)") 
 
 # initiate empty list that stores position of cells that change state from one generation to the next
 changed_cells = list()
@@ -33,10 +34,10 @@ current_particle_index = 0
 
 # initiate TWO gameboards! one that holds the current generation, and one for the next generation
 current_game_board = board.create_game_board("Air", cells_number_w, cells_number_h)
-print("created current game board")
+print("\t>> created current game board")
 
 nextGen_game_board = board.create_game_board("Air", cells_number_w, cells_number_h)
-print("created next gen board")
+print("\t>> created next gen board")
 
 # set root, title, application-window-size, labels for application, etc.
 root = tk.Tk()
@@ -47,7 +48,7 @@ root.title("Sand Game")
 # Create the canvas for the game board
 # game canvas -> +2 added to the dimensions are needed to draw/display top rows and left most columns cell border (idk why really)
 canvas = tk.Canvas(root, width=game_board_width+0, height=game_board_height+0, bg="green")
-print("game canvas created")
+print("\t>> game canvas created")
 
 ################################################## LABEL AND BUTTONS ###############################################################
 
