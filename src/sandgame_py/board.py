@@ -49,7 +49,7 @@ def add_cells_to_draw():
             posi = prtcle.get_pos()
             settings.changed_cells.append(posi)
             #print(f"Type: {prtcle.type}, Row: {prtcle.x_pos}, Col: {prtcle.y_pos} added")
-    print("\t\t\t>>>> initial particles added to changed cells")
+    print("\t>> initial particles added to changed cells")
 
 def run_board():
      
@@ -58,11 +58,11 @@ def run_board():
     window_height = settings.game_board_height + 10
 
     # debug print statement
-    print("\t\t>>> dimensions set, starting window creation")
+    print("\t>> dimensions set, starting window creation")
 
     # Create the window
     settings.root.geometry(f"{window_width}x{window_height}")
-    print("\t\t>>> window was created")
+    print("\t>> window was created")
 
     # set the position of the game-canvas in the application window
     settings.canvas.pack(side=tk.LEFT)
@@ -72,11 +72,11 @@ def run_board():
     settings.type_color_label.pack(side=tk.BOTTOM, anchor=tk.S)
     settings.type_label.pack(side=tk.BOTTOM, anchor=tk.S)
     settings.button_label.pack(side=tk.TOP, anchor=tk.N)
-    print("\t\t>>> packing done")
+    print("\t>> packing done")
   
     #first time initialise all cells to be "changed" (because right now the "draw" function only operates on the changed cells list)
     add_cells_to_draw()
 
     # Draw the game board
     draw_game_board(settings.canvas, settings.nextGen_game_board, settings.cell_width, settings.cell_height)
-    print("\t\t>>> gameboard setup finished and drawn")
+    print("\t>> gameboard setup finished and drawn")

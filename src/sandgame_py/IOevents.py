@@ -27,16 +27,18 @@ def set_particle(event):
 
     # Get the currently selected particle type
     current_particle_type = settings.particle_types[settings.current_particle_index]
+    #TODO: get this working -> look t current / nextgen board etc
+    if not (current_particle_type == settings.current_game_board[x][y].type):
+    
+        # Set the particle type on the game board at the specified cell
+        #if (x, y) not in settings.changed_cells:
+        settings.nextGen_game_board[x][y] = particle.Particle(current_particle_type, x, y)
+        settings.changed_cells.append((x, y))
 
-    # Set the particle type on the game board at the specified cell
-    #if (x, y) not in settings.changed_cells:
-    settings.nextGen_game_board[x][y] = particle.Particle(current_particle_type, x, y)
-    settings.changed_cells.append((x, y))
+        print("\t\t>>> set '" + current_particle_type + "' particle at x: " + str(x) + ", y: " + str(y))
 
-    #print("set '" + current_particle_type + "' particle at x: " + str(x) + ", y: " + str(y))
-
-    # Redraw the game board to reflect the updated particle
-    draw_game_board(settings.canvas, settings.nextGen_game_board, settings.cell_width, settings.cell_height)
+        # Redraw the game board to reflect the updated particle
+        draw_game_board(settings.canvas, settings.nextGen_game_board, settings.cell_width, settings.cell_height)
    
 
 def get_part_color(text):

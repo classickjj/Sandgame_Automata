@@ -19,7 +19,7 @@ cell_height = 4
 cells_number_w = game_board_width // cell_width
 cells_number_h = game_board_height // cell_height
 # for debugging: print the computed values to console
-print(f"\t>> board dimensions: {cells_number_w} x {cells_number_h} cells (-> width x height)") 
+print(f"\t>> board dimensions: {cells_number_w} x {cells_number_h} cells (-> rows x cols)") 
 
 # initiate empty list that stores position of cells that change state from one generation to the next
 changed_cells = list()
@@ -47,7 +47,7 @@ root.title("Sand Game")
 
 # Create the canvas for the game board
 # game canvas -> +2 added to the dimensions are needed to draw/display top rows and left most columns cell border (idk why really)
-canvas = tk.Canvas(root, width=game_board_width+0, height=game_board_height+0, bg="green")
+canvas = tk.Canvas(root, width=game_board_width+0, height=game_board_height+0)
 print("\t>> game canvas created")
 
 ################################################## LABEL AND BUTTONS ###############################################################
@@ -66,12 +66,12 @@ button_label = tk.Label(root)
 def start_button_clicked():
     global is_game_started
     if not is_game_started: 
-        print("game started/continued")
+        print("\t\t>>> game started/continued")
         start_pause_button.config(text="Pause")
         is_game_started = True
         #TODO Call update function here
     else:
-        print("game stopped/paused")
+        print("\t\t>>> game stopped/paused")
         start_pause_button.config(text="Continue")
         is_game_started = False
         #TODO Pause update function here
@@ -109,7 +109,7 @@ def reset_button_clicked():
     type_label.config(text=f"{particle_types[current_particle_index]}")
     type_color_label.config(bg="gray")
 
-reset_button = tk.Button(button_label, text="Reset", command=reset_button_clicked)
+reset_button = tk.Button(button_label, text="Reset")
 
 start_pause_button.pack(side=tk.LEFT, anchor=tk.W)
 reset_button.pack(side=tk.RIGHT, anchor=tk.E)
