@@ -5,7 +5,7 @@ class Particle:
         self.type  = type
         self.x_pos = x_pos
         self.y_pos = y_pos
-        self.color = self.get_color()
+        
     
     # get/set the color of the Particle determined by its type
     def get_color(self):
@@ -27,3 +27,11 @@ class Particle:
         #returns tuple of x- and y-coordinates like so -> {x-coord, y-coord}
         pos = (self.x_pos, self.y_pos)
         return pos
+    
+    def get_type(self):
+        type = self.type
+        return type
+
+    def set_type(self, new_type):
+        #sets new particle type
+        self.type = new_type

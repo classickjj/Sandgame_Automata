@@ -1,6 +1,7 @@
 import tkinter as tk
 import settings
 import particle
+import rules
 
 
 ################################################### GAMEBOARD ##############################################################################
@@ -13,13 +14,13 @@ def create_game_board(type, x, y):
 
 # function to draw the gameboard / draw changes on the gameboard ---- TODO: do i actually need to give cell_w and cell_h? i dont think so ... 
 def draw_game_board(canvas, game_board, cell_width, cell_height):
-   
+
     # Draw individual cells
     for cell in settings.changed_cells:
         row, col = cell
              
-        particle = game_board[row][col]  # Get the particle at the current position
-        particle_color = particle.color  # Get the color of the particle
+        current_particle = game_board[row][col]  # Get the particle at the current position
+        particle_color = current_particle.get_color() # Get the color of the particle
 
         # values regarding position needed to draw individual cells
         x1 = row * cell_width + 2
@@ -29,12 +30,12 @@ def draw_game_board(canvas, game_board, cell_width, cell_height):
 
         # draw a (filled) rectangle (cell) at specified coordinates with given color (and if specified with cell border) 
         canvas.create_rectangle(x1, y1, x2, y2, outline="", fill=particle_color)
-    
+        #print("\t\t\t\t>>>>x: " + str(row) + " y: " + str(col) + " drawn...type: " + current_particle.type)
     #clear the updated cells list after drawing them 
     settings.changed_cells.clear()
 
     # when done print msg in console
-    #print("Game board updated")
+    #print("\t\t>>>Game board update drawn")
     
 
 ################################################### WINDOW/BOARD SETUP #####################################################################
@@ -80,3 +81,63 @@ def run_board():
     # Draw the game board
     draw_game_board(settings.canvas, settings.nextGen_game_board, settings.cell_width, settings.cell_height)
     print("\t>> gameboard setup finished and drawn")
+
+def update_generations():
+    if settings.is_game_started:
+        for y in range(settings.cells_number_h):
+            for x in range(settings.cells_number_w):
+                settings.current_game_board[x][y] = settings.nextGen_game_board[x][y]
+        #print("\t\t>>>wrote new_gen into current_gen")           
+
+
+def update_board():
+    if settings.is_game_started:
+        for y in range(settings.cells_number_h):
+            for x in range(settings.cells_number_w):
+                prtcl_type = settings.current_game_board[x][y].get_type()
+
+                if prtcl_type == "Stone":
+                    #settings.root.after(0, print(">found STONE at x: " + str(x) + " , y: " + str(y)))
+                    settings.root.after(0, rules.stone_rules, x, y)
+
+                if prtcl_type == "Water":
+                    #settings.root.after(0, print(">found WATER at x: " + str(x) + " , y: " + str(y)))
+                    settings.root.after(50, rules.water_rules, x, y)
+                
+                
+        
+        
+
+    # Schedule the update_board function to run again after a delay (e.g., 300 milliseconds)
+    settings.root.after(200, update_board)
+
+
+
+
+def print_generation(gameboard):
+    row = ""
+    for y in range(settings.cells_number_h):
+        #print("\n")
+        for x in range(settings.cells_number_w):
+            cur_prtcl = ""
+            prtcl_type = gameboard[x][y].type
+            if prtcl_type == "Air":
+                cur_prtcl += "  "        
+            elif prtcl_type == "Water":
+                cur_prtcl += "Wa"
+            elif prtcl_type == "Stone":
+                cur_prtcl += "St"
+            elif prtcl_type == "Sand":
+                cur_prtcl += "Sa"
+            else:
+                cur_prtcl += "--"
+            
+            row += "["+ cur_prtcl + "]" + " "
+        print(row)
+        row = ""
+    #print("\n")
+
+    
+
+
+ 
